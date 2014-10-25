@@ -3,23 +3,24 @@
 #include <fstream>
 #include <string>
 using namespace std;
+char t;
 void lang()
 {
 	setlocale(LC_ALL, "Russian");
-	ifstream text("D:/text/text.txt");
-	if (!text.is_open())
-		cout<<"лох"<<endl;
-	char ch;
-	for(int i=0; i<33; i++)
-	{
-		text>>ch;
-		cout<<(int)ch<<" ";
-		text.close();
-	}
+	cin>>t;
+	if ((int)t==-15)
+		t=-72;
+	else
+		if (((int)t>=-32)&&((int)t<=17))
+			t=t+16;
+		else
+			t=t+64;
+	cout<<t<<" ";
 }
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	lang();
+	for (int i=0; i<33; i++)
+		lang();
 	return 0;
 }
