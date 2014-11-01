@@ -2,7 +2,7 @@
 using namespace std;
 int main()
 {
-	int A=0,B=0,S=0,alen,blen,slen=1;
+	int A=0,B=0,S=0,alen,blen,slen=0;
 	char* a = new char[];
 	char* b = new char[];
 	char* s = new char[];
@@ -25,10 +25,11 @@ int main()
 		S/=10;
 		slen++;
 	}
-	s[slen-1]=0;
+	s[slen]=0;
 	for (int i=0; i<=slen-1; i++)
 		t[i]=s[slen-i-1];
+	t[slen]=0;
+	cout<<s<<endl;;
 	cout<<t;
-	system("pause");
 	return 0;
 }
