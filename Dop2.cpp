@@ -26,9 +26,9 @@ char* findLongestSubstring()
 	char* strmax = new char[];
 	char* strmin = new char[];
 	cout<<"Введите 1 строку"<<endl;
-	cin.getline(str1,'\n');
+	cin.getline(str1,INT_MAX,'\n');
 	cout<<"Введите 2 строку"<<endl;
-	cin.getline(str2,'\n');
+	cin.getline(str2,INT_MAX,'\n');
 	if (str2>str1)
 	{
 		ch(strmax,str2);
@@ -39,47 +39,52 @@ char* findLongestSubstring()
 		ch(strmax,str1);
 		ch(strmin,str2);
 	}
+	cout<<strmax<<endl;
 	lenmax=len(strmax);
 	lenmin=len(strmin);
+	char* bufmax = new char[lenmax];
+	char* bufmin = new char[lenmin];
+	char* res = new char[lenmin];
+	res[0]='\0';
 	for (int j=lenmax-1; j>=0; j--)
 	{
 		char* bufmax = new char[lenmax];
 		for (int k=0; k+j<=lenmin-1; k++)
 		{
-			char* bufmax = new char[lenmax];
 			int s=0;
-			for (int i=0; i<=j; i++, s++)
+			for (int i=0; i<=j; i++)
+			{
 				bufmax[i]=strmax[i+k];
-			bufmax[s+1]='\0';
+				s++;
+			}
+			bufmax[s]=0;
 			for (int p=lenmin-1; p>=0; p--)
 			{
 				for (int q=0; q+p<=lenmin-1; q++)
 				{
-					char* bufmin = new char[lenmin];
 					int s=0;
-					for (int i=0; i<=p; i++,s++)
+					for (int i=0; i<=p; i++)
 					{
 						bufmin[i]=strmin[i+q];
 						if (bufmax[i]!=bufmin[i])
 						{
-							bufmin="\0";
+							bufmin[0]='\0';
 							break;
 						}
+						s++;
 					}
+					bufmin[s]=0;
 					if (len(bufmin)>0)
 					{
-						bufmin[s]='\0';
-						cout<<"Результат :"<<bufmin<<endl;
-						return bufmin;
+						if (len(bufmin)>len(res))
+							ch(res,bufmin);
 					}
-					delete [] bufmin;
 				}
 			}
-			delete [] bufmax;
 		}
 	}
-	cout<<"---"<<endl;
-	return '\0';
+	cout<<"Результат :"<<res<<endl;
+	return res;
 }
 int main()
 {
