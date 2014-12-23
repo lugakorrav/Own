@@ -2,6 +2,7 @@
 #include<fstream>
 #include<string>
 using namespace std;
+int Size=0;
 class date
 {
 private:
@@ -36,7 +37,7 @@ void Swap(date* d, int index1, int index2)
 	d[index1]=d[index2];
 	d[index2]=d[index1];
 }
-void SortArray (date* d, int Size)
+void SortArray (date* d)
 {
 	for (int i=0; i<Size; i++)
 	{
@@ -44,6 +45,12 @@ void SortArray (date* d, int Size)
 			Swap(d, i, i+1);
 	}
 }
+void WriteArray (date* d, ifstream& in)
+{
+	string buffer;
+	for (int i=0; i<Size; i++)
+	{
+		while (!buffer[i]
 int CalcLenght(ifstream& in) // Подсчет количества дат
 {
 	int count;
@@ -57,5 +64,6 @@ int CalcLenght(ifstream& in) // Подсчет количества дат
 }
 int main()
 {
+	Size=CalcLenght(in);
 	ifstream in("in.txt");
-	date* Arr = new date[CalcLenght(in)];
+	date* Arr = new date[Size];
