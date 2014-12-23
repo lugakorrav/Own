@@ -29,10 +29,21 @@ public:
 				return false;
 	}
 };
+void Swap(date* d, int index1, int index2)
+{
+	date buffer;
+	buffer=d[index1];
+	d[index1]=d[index2];
+	d[index2]=d[index1];
+}
 void SortArray (date* d, int Size)
 {
 	for (int i=0; i<Size; i++)
 	{
+		for (int i=0; i<Size; i++)
+			Swap(d, i, i+1);
+	}
+}
 int CalcLenght(ifstream& in) // Подсчет количества дат
 {
 	int count;
