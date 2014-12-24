@@ -79,7 +79,8 @@ void SortArray (date* d) // Сортировка элементов массив
 	for (int i=0; i<Size; i++)
 	{
 		for (int i=0; i<Size; i++)
-			Swap(d, i, i+1);
+                        if (d[i]>d[i+1])
+	                        Swap(d, i, i+1);
 	}
 }
 void WriteArray (ofstream& out, date* d)
