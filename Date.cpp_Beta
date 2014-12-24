@@ -20,7 +20,7 @@ public:
 					return true;
 				else
 					if (this->month==d.month)
-						if (this->day>=d.day)
+						if (this->day>d.day)
 							return true;
 						else
 							return false;
