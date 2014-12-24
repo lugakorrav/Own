@@ -34,36 +34,41 @@ public:
 };
 int CalcLenght(ifstream& in) // Подсчет количества дат
 {
-	int count;
+	int count=0;
 	string str;
 	while (!in.fail())
 	{
 		in>>str;
+		if (in.fail())
+			break;
 		count++;
 	}
+	in.clear();
 	in.seekg(0);
 	return count;
 }
 string ReadDate (ifstream& in) // Чтение даты из файла
 {
 	string buffer;
-	char bufchar;
-	while ((bufchar!='.')&&(bufchar!='\n'))
+	char bufchar=0;
+	while ((bufchar!='.')&&(bufchar!='\n')&&(!in.fail()))
 	{
 		in>>bufchar;
-		if ((bufchar=='.')&&(bufchar=='\n'))
+		if ((bufchar=='.')||(bufchar=='\n')||(in.fail()))
 			break;
 		buffer+=bufchar;
 	}
 	return buffer;
 }
-void ReadArray (ifstream& in, date* d) // Запись из файла в массив
+void ReadArray (ifstream& in, date* d) // Чтение из файла в массив
 {
+	string str;
 	for (int i=0; i<Size; i++)
 	{
 		d[i].day=stoi(ReadDate(in));
 		d[i].month=stoi(ReadDate(in));
-		d[i].year=stoi(ReadDate(in));
+		in>>str;
+		d[i].year=stoi(str);
 	}
 	in.seekg(0);
 }
@@ -72,23 +77,22 @@ void Swap(date* d, int index1, int index2) // Перестановка элем�
 	date buffer;
 	buffer=d[index1];
 	d[index1]=d[index2];
-	d[index2]=d[index1];
+	d[index2]=buffer;
 }
 void SortArray (date* d) // Сортировка элементов массива по возрастанию
 {
 	for (int i=0; i<Size; i++)
 	{
 		for (int i=0; i<Size; i++)
-                        if (d[i]>d[i+1])
-	                        Swap(d, i, i+1);
+			if (d[i]>d[i+1])
+				Swap(d, i, i+1);
 	}
 }
-void WriteArray (ofstream& out, date* d)
+void WriteArray (ofstream& out, date* d) // Запись из массива в файл
 {
 	for (int i=0; i<Size; i++)
 		out<<d[i].day<<'.'<<d[i].month<<'.'<<d[i].year<<endl;
 }
-
 int main()
 {
 	ifstream in("in.txt");
