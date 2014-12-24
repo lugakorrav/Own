@@ -10,7 +10,8 @@ private:
 	int month;
 	int year;
 public:
-	friend void WriteArray (ifstream& in, date* d);
+	friend void ReadArray (ifstream& in, date* d);
+	friend void WriteArray (ofstream& out, date* d);
 	bool operator > (date& d)
 	{
 		if (this->year>d.year)
@@ -56,7 +57,7 @@ string ReadDate (ifstream& in) // Чтение даты из файла
 	}
 	return buffer;
 }
-void WriteArray (ifstream& in, date* d) // Запись из файла в массив
+void ReadArray (ifstream& in, date* d) // Запись из файла в массив
 {
 	for (int i=0; i<Size; i++)
 	{
@@ -81,11 +82,20 @@ void SortArray (date* d) // Сортировка элементов массив
 			Swap(d, i, i+1);
 	}
 }
-void WriteArray (date* d)
+void WriteArray (ofstream& out, date* d)
+{
+	for (int i=0; i<Size; i++)
+		out<<d[i].day<<'.'<<d[i].month<<'.'<<d[i].year<<endl;
+}
+
 int main()
 {
 	ifstream in("in.txt");
+	ofstream out("out.txt");
 	Size=CalcLenght(in);
 	date* Arr = new date[Size];
-	WriteArray (in, Arr);
+	ReadArray (in, Arr);
 	SortArray (Arr);
+	WriteArray (out, Arr);
+	return 0;
+}
