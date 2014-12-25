@@ -14,15 +14,15 @@ public:
 	friend void WriteArray (ofstream& out, date* d);
 	bool operator > (date& d)
 	{
-		if (this->year>d.year)
+		if (year>d.year)
 			return true;
 		else
-			if (this->year==d.year)
-				if (this->month>d.month)
+			if (year==d.year)
+				if (month>d.month)
 					return true;
 				else
-					if (this->month==d.month)
-						if (this->day>d.day)
+					if (month==d.month)
+						if (day>d.day)
 							return true;
 						else
 							return false;
