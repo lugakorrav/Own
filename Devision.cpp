@@ -1,4 +1,5 @@
 #include <iostream>
+
 using namespace std;
 
 int len(int number) // Длина числа
@@ -8,7 +9,7 @@ int len(int number) // Длина числа
 	{
 		number /= 10;
 		i++;
-	}
+	};
 	return i;
 };
 
@@ -36,9 +37,6 @@ int calcdevident(int startnumber, int devident, int devisor, int& marker) // Р�
 	return smalldevident;
 };
 
-int calcstart(int smalldevident, int devident, int devisor, int& marker);
-
-
 void printspace(ostream& out, int spacesize)
 {
 	for (int i = 0; i < spacesize; i++)
@@ -51,9 +49,14 @@ void printline(ostream& out, int linesize)
 		out << "-";
 };
 
+class ecxeption
+{
+};
+
 int main()
 {
 	setlocale(LC_ALL, "rus");
+	exception bigex, ex;
 	int devident; // Делимое
 	int devisor; // Делитель
 	int result; // Частное
@@ -64,8 +67,21 @@ int main()
 	int spacesize = 1; // Отступ слева
 	cout << "Введите делимое" << endl;
 	cin >> devident;
+	if ((cin.fail())||(devident <= 0))
+	{
+		cout << "Введено некорректное число" << endl;
+		system("pause");
+		return 0;
+	};
 	cout << "Введите делитель" << endl;
 	cin >> devisor;
+	if ((cin.fail())||(devisor <= 0))
+	{
+		cout << "Введено некорректное число" << endl;
+		system("pause");
+		return 0;
+	};
+	cout << endl;
 	marker = len(devident);
 	result = devident / devisor;
 	smalldevident = calcdevident(startnumber, devident, devisor, marker);
@@ -92,15 +108,15 @@ int main()
 	printline(cout, len(smalldevident));
 	printspace(cout, len(devident) - len(smalldevident));
 	cout << "|" << result << " (Частное)" << endl;
-	spacesize += (len(sub) - len(startnumber));
 	smalldevident = calcdevident(startnumber, devident, devisor, marker);
 	while (smalldevident >= devisor)
 	{
+		spacesize += (len(sub) - len(startnumber));
 		printspace(cout, spacesize);
-		sub = smalldevident - (smalldevident % devisor);
 		cout << smalldevident << endl;
 		printspace(cout, spacesize - 1);
 		cout << "-";
+		sub = smalldevident - (smalldevident % devisor);
 		printspace(cout, len(smalldevident) - len(sub));
 		cout << sub << endl;
 		printspace(cout, spacesize);
@@ -109,9 +125,9 @@ int main()
 		startnumber = smalldevident % devisor;
 		smalldevident = calcdevident(startnumber, devident, devisor, marker);
 	};
+	spacesize += (len(sub) - len(startnumber));
 	printspace(cout, spacesize);
-	cout << smalldevident << " (Остаток)" << endl;
-
-
+	cout << smalldevident << " (Остаток)" << endl << endl;
+	system("pause");
 	return 0;
 }
