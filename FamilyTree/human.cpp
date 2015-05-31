@@ -1,11 +1,11 @@
 #include "tree.h"
 
-Tree::Human::Human(std::string Aname, bool Asex) : name(Aname)
+Tree::Human::Human(std::string Aname, bool Agender) : name(Aname)
 {
 	partner = 0;
 	father = 0;
 	mother = 0;
-	sex = Asex;
+	gender = Agender;
 };
 
 Tree::Human::~Human()
@@ -15,19 +15,22 @@ Tree::Human::~Human()
 	if (mother)
 		mother->delchild(this);
 	if (partner)
-		partner->delpartner(this);
+		partner->delpartner();
 	for (std::map<std::string, Human*>::iterator it = children.begin(); it != children.end(); it++)
 		it->second->delparent(this);
 };
 
 void Tree::Human::addchild(Human* Achild)
 {
-	children[Achild->name] = Achild;
+	if (Achild)
+		children[Achild->name] = Achild;
 };
 
 void Tree::Human::addparent(Human* Aparent)
 {
-	if (Aparent->sex)
+	if (!Aparent)
+		return;
+	if (Aparent->gender)
 	{
 		if (father)
 			father->delchild(this);
@@ -43,8 +46,10 @@ void Tree::Human::addparent(Human* Aparent)
 
 void Tree::Human::addpartner(Human* Apartner)
 {
+	if (!Apartner)
+		return;
 	if (partner)
-		partner->delpartner(this);
+		partner->delpartner();
 	partner = Apartner;
 };
 
@@ -55,14 +60,23 @@ void Tree::Human::delchild(Human* Achild)
 
 void Tree::Human::delparent(Human* Aparent)
 {
-	if (Aparent->sex)
-		father = 0;
+	if (!Aparent)
+		return;
+	if (Aparent->gender)
+	{
+		if (Aparent == father)
+			father = 0;
+	}
 	else
-		mother = 0;
+	{
+		if (Aparent == mother)
+			mother = 0;
+	};
 };
 
-void Tree::Human::delpartner(Human* Apartner)
+void Tree::Human::delpartner()
 {
+	partner->partner = 0;
 	partner = 0;
 };
 
@@ -73,6 +87,7 @@ std::string Tree::Human::getname()
 
 void Tree::Human::show()
 {
+	std::cout << "Name: " << getname().data() << '\n';
 	std::cout << "Parents:";
 	if (father)
 		std::cout << father->getname().data();
@@ -93,3 +108,4 @@ void Tree::Human::show()
 //	{
 //		checkchildren(it->second);
 //	};
+
