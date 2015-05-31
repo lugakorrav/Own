@@ -1,49 +1,59 @@
-#include <set>
-#include <map>
-#include <queue>
-#include <iostream>
-#pragma once
+#include "tree.h"
 
-class Tree
+void Tree::addhuman(std::string Aname, bool Asex)
 {
-private:
-	class Human
-	{
-	private:
-		Human* partner;
-		Human* father;
-		Human* mother;
-		std::map<std::string, Human*> children;
-		bool sex;
-		std::string name;
+	Human* h = new Human(Aname, Asex);
+	founders[Aname] = h;
+	all[Aname] = h;
+}
 
-	public:
-		Human(std::string Aname, bool Asex);
-		~Human();
+void Tree::addlink(std::string ParentName, std::string ChildName)
+{
+	Human* Aparent = all[ParentName];
+	Human* Achild = all[ChildName];
+	if (Aparent == Achild)
+		return;
+	Aparent->addchild(Achild);
+	Achild->addparent(Aparent);
+};
 
-		void addparent(Human* Aparent);
-		void addchild(Human* Achild);
-		void addpartner(Human* Apartner);
+void Tree::addpartner(std::string p1, std::string p2)
+{
+	Human* Apartner1 = all[p1];
+	Human* Apartner2 = all[p2];
+	if (Apartner1 == Apartner2)
+		return;
+	Apartner1->addpartner(Apartner2);
+	Apartner2->addpartner(Apartner1);
+};
 
-		void delparent(Human* Aparent);
-		void delchild(Human* Achild);
-		void delpartner(Human* Apartner);
+void Tree::dellink(std::string ParentName, std::string ChildName)
+{
+	Human* Aparent = all[ParentName];
+	Human* Achild = all[ChildName];
+	if (Aparent == Achild)
+		return;
+	Aparent->delchild(Achild);
+	Achild->delparent(Aparent);
+};
 
-		std::string getname();
-		//Human* checkchildren(Human* h);
-		void show();
-	};
+void Tree::delhuman(std::string Aname)
+{
+	delete all[Aname];
+};
 
-	std::map<std::string, Human*> founders;
-	std::map<std::string, Human*> all;
-	Human* find(std::string Aname);
-	void showinfo(Human* h);
-public:
-	void addhuman(const std::string Aname, bool Asex);
-	void addlink(std::string ParentName, std::string ChildName);
-	void addpartner(std::string p1, std::string p2);
-	void delhuman(std::string);
-	void dellink(std::string ParentName, std::string ChildName);
-	void delpartner(std::string p1, std::string p2);
-	void findinfo(std::string);
+Tree::Human* Tree::find(std::string Aname)
+{
+	return all[Aname];
+};
+
+void Tree::showinfo(Human* h)
+{
+	if (h)
+		h->show();
+};
+
+void Tree::findinfo(std::string Aname)
+{
+	showinfo(find(Aname));
 };
