@@ -48,4 +48,5 @@ public:
 	void delpartner(std::string p);
 	void findinfo(std::string);
 	void dialog();
+	void showtip();
 };
