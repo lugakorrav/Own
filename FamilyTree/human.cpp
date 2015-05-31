@@ -87,7 +87,7 @@ std::string Tree::Human::getname()
 
 void Tree::Human::show()
 {
-	std::cout << "Name: " << getname().data() << '\n';
+	std::cout << "\nName: " << getname().data() << '\n';
 	std::cout << "Parents:";
 	if (father)
 		std::cout << father->getname().data();
@@ -108,4 +108,3 @@ void Tree::Human::show()
 //	{
 //		checkchildren(it->second);
 //	};
-
