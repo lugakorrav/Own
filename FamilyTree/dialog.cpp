@@ -4,15 +4,19 @@
 
 using namespace std;
 
+void Tree::showtip()
+{
+	cout << "\n--------------------------------------------------------------------------\n";
+	cout << "1 - add new person; 2 - remove person; 3 - add link; 4 - remove link;\n";
+	cout << "5 - add partner; 6 - remove partner; 7 - find information about person; \nesc - close" << endl;
+	cout << "--------------------------------------------------------------------------\n\n";
+};
+
 void Tree::dialog()
 {
+	showtip();
 	while (1)
 	{
-		cout << "\n--------------------------------------------------------------------------\n";
-		cout << "1 - add new person; 2 - remove person; 3 - add link; 4 - remove link;\n";
-		cout << "5 - add partner; 6 - remove partner; 7 - find information about person; \nesc - close" << endl;
-		cout << "--------------------------------------------------------------------------\n\n";
-
 		char c = _getch();
 		switch (c)
 		{
@@ -25,6 +29,9 @@ void Tree::dialog()
 			cout << "Enter a gender\n";
 			cin >> gen;
 			addhuman(name, gen);
+			cin.clear();
+			cin.sync();
+			showtip();
 			break;
 		}
 		case '2':
@@ -33,6 +40,9 @@ void Tree::dialog()
 			cout << "Enter a name\n";
 			getline(cin, name);
 			delhuman(name);
+			cin.clear();
+			cin.sync();
+			showtip();
 			break;
 		}
 		case '3':
@@ -43,6 +53,9 @@ void Tree::dialog()
 			cout << "Enter the name of the child\n";
 			getline(cin, child);
 			addlink(parent, child);
+			cin.clear();
+			cin.sync();
+			showtip();
 			break;
 		}
 		case '4':
@@ -53,6 +66,9 @@ void Tree::dialog()
 			cout << "Enter the name of the child\n";
 			getline(cin, child);
 			dellink(parent, child);
+			cin.clear();
+			cin.sync();
+			showtip();
 			break;
 		}
 		case '5':
@@ -63,6 +79,9 @@ void Tree::dialog()
 			cout << "Enter the name of the partner\n";
 			getline(cin, partner2);
 			addpartner(partner1, partner2);
+			cin.clear();
+			cin.sync();
+			showtip();
 			break;
 		}
 		case '6':
@@ -71,6 +90,9 @@ void Tree::dialog()
 			cout << "Enter the name of the partner\n";
 			getline(cin, partner);
 			delpartner(partner);
+			cin.clear();
+			cin.sync();
+			showtip();
 			break;
 		}
 		case '7':
@@ -79,6 +101,9 @@ void Tree::dialog()
 			cout << "Enter a name\n";
 			getline(cin, name);
 			findinfo(name);
+			cin.clear();
+			cin.sync();
+			showtip();
 			break;
 		}
 		case 27:
