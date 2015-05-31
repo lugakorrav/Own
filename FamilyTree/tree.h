@@ -1,59 +1,51 @@
-#include "tree.h"
+#include <iostream>
+#include <set>
+#include <map>
+#include <queue>
+#include <string>
+#pragma once
 
-void Tree::addhuman(std::string Aname, bool Asex)
+class Tree
 {
-	Human* h = new Human(Aname, Asex);
-	founders[Aname] = h;
-	all[Aname] = h;
-}
+private:
+	class Human
+	{
+	private:
+		Human* partner;
+		Human* father;
+		Human* mother;
+		std::map<std::string, Human*> children;
+		bool gender;
+		std::string name;
 
-void Tree::addlink(std::string ParentName, std::string ChildName)
-{
-	Human* Aparent = all[ParentName];
-	Human* Achild = all[ChildName];
-	if (Aparent == Achild)
-		return;
-	Aparent->addchild(Achild);
-	Achild->addparent(Aparent);
-};
+	public:
+		Human(std::string Aname, bool Agender);
+		~Human();
 
-void Tree::addpartner(std::string p1, std::string p2)
-{
-	Human* Apartner1 = all[p1];
-	Human* Apartner2 = all[p2];
-	if (Apartner1 == Apartner2)
-		return;
-	Apartner1->addpartner(Apartner2);
-	Apartner2->addpartner(Apartner1);
-};
+		void addparent(Human* Aparent);
+		void addchild(Human* Achild);
+		void addpartner(Human* Apartner);
 
-void Tree::dellink(std::string ParentName, std::string ChildName)
-{
-	Human* Aparent = all[ParentName];
-	Human* Achild = all[ChildName];
-	if (Aparent == Achild)
-		return;
-	Aparent->delchild(Achild);
-	Achild->delparent(Aparent);
-};
+		void delparent(Human* Aparent);
+		void delchild(Human* Achild);
+		void delpartner();
 
-void Tree::delhuman(std::string Aname)
-{
-	delete all[Aname];
-};
+		std::string getname();
+		//Human* checkchildren(Human* h);
+		void show();
+	};
 
-Tree::Human* Tree::find(std::string Aname)
-{
-	return all[Aname];
-};
-
-void Tree::showinfo(Human* h)
-{
-	if (h)
-		h->show();
-};
-
-void Tree::findinfo(std::string Aname)
-{
-	showinfo(find(Aname));
+	std::map<std::string, Human*> founders;
+	std::map<std::string, Human*> all;
+	Human* find(std::string Aname);
+	void showinfo(Human* h);
+public:
+	void addhuman(const std::string Aname, bool Agender);
+	void addlink(std::string ParentName, std::string ChildName);
+	void addpartner(std::string p1, std::string p2);
+	void delhuman(std::string);
+	void dellink(std::string ParentName, std::string ChildName);
+	void delpartner(std::string p);
+	void findinfo(std::string);
+	void dialog();
 };
