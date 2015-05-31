@@ -8,10 +8,10 @@ void Tree::dialog()
 {
 	while (1)
 	{
-		cout << "--------------------------------------------------------------------------\n";
+		cout << "\n--------------------------------------------------------------------------\n";
 		cout << "1 - add new person; 2 - remove person; 3 - add link; 4 - remove link;\n";
 		cout << "5 - add partner; 6 - remove partner; 7 - find information about person; \nesc - close" << endl;
-		cout << "--------------------------------------------------------------------------\n";
+		cout << "--------------------------------------------------------------------------\n\n";
 
 		char c = _getch();
 		switch (c)
