@@ -48,6 +48,8 @@ void Tree::Human::addpartner(Human* Apartner)
 {
 	if (!Apartner)
 		return;
+	if (gender == Apartner->gender)
+		return;
 	if (partner)
 		partner->delpartner();
 	partner = Apartner;
@@ -100,6 +102,14 @@ void Tree::Human::show()
 		std::cout << it->second->getname().data() << ' ';
 	};
 	std::cout << '\n';
+	if (partner)
+	{
+		if (partner->gender)
+			std::cout << "Husband: ";
+		else
+			std::cout << "Wife: ";
+		std::cout << partner->getname();
+	};
 };
 
 //Tree::Human* Tree::Human::checkchildren(Human* h)
