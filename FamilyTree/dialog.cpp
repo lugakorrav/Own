@@ -23,7 +23,7 @@ void Tree::dialog()
 		case '1':
 		{
 			string name;
-			int gen;
+			bool gen;
 			cout << "Enter a name\n";
 			getline(cin, name);
 			cout << "Enter a gender\n";
